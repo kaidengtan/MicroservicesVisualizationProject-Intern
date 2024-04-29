@@ -1,0 +1,45 @@
+﻿@page
+@using MyRazorPagesApp.Pages
+@model MermaidDiagramModel
+@{
+    ViewData["Title"] = "Microservices Swimlane Diagram";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <div id="mermaid-diagram"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            mermaid.initialize({
+                startOnLoad: true
+            });
+
+            const diagramDefinition = `
+                        graph TD;
+                            subgraph ServiceA
+                                endpoint1 --> endpoint2
+                                endpoint2 --> endpoint3
+                            end
+                            subgraph ServiceB
+                                log1 --> log2
+                                log2 --> log3
+                            end
+                            ServiceA -->|calls| ServiceB
+                    `;
+
+            const element = document.getElementById('mermaid-diagram');
+            mermaid.render('mermaid-diagram', diagramDefinition, function (svgCode) {
+                element.innerHTML = svgCode;
+            });
+        });
+    </script>
+</body>
+</html>

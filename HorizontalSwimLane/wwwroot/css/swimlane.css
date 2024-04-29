@@ -1,0 +1,62 @@
+.swimlanes-wrapper {
+    background-color: powderblue;
+    padding: 20px;
+    display: inline-block; /* Display as inline block to wrap content */
+}
+
+.swimlanes-container {
+    display: block;
+    overflow: auto;
+    white-space: nowrap; /* Prevent wrapping swimlanes to multiple lines */
+}
+
+.swimlane {
+    background-color: ghostwhite;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 400px;
+    box-sizing: border-box;
+    display: inline-block; /* Display swimlanes inline */
+    vertical-align: top; /* Align swimlanes to top of wrapper */
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.service-name-container {
+    background-color: lightgray;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.log-message-container {
+    display: block;
+}
+
+.log-message {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.log-message-info {
+    /* Allow text to wrap naturally within the container */
+    white-space: normal; /* Allow text to wrap to multiple lines */
+    word-wrap: break-word; /* Break long words to prevent overflow */
+}
+
+.protocol-hbase {
+    background-color: lightpink;
+}
+
+.protocol-grpc {
+    background-color: lightcyan;
+}
+
+.protocol-mysql {
+    background-color: lightgoldenrodyellow;
+}
+
+.protocol-http {
+    background-color: lightgreen;
+}

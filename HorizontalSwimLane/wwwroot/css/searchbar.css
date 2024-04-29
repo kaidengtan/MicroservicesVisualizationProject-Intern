@@ -1,0 +1,6 @@
+.search-bar, .error-container {
+    padding-bottom: 10px;
+}
+button:has(:hover) {
+    background-color: #e7e7e7;
+}
