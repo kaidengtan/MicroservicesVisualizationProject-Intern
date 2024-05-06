@@ -3,6 +3,7 @@ using System;
 using HorizontalSwimLane.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HorizontalSwimLane.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    partial class ServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20240429032108_AddLevelProperty")]
+    partial class AddLevelProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,20 +27,20 @@ namespace HorizontalSwimLane.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ActionName")
+                    b.Property<string>("Action")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<float?>("ElapsedTime")
-                        .HasColumnType("float");
+                    b.Property<string>("ElapsedTime")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Message")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Protocol")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("ServiceName")
@@ -47,10 +49,6 @@ namespace HorizontalSwimLane.Migrations
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("TraceId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 

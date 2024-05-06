@@ -4,97 +4,42 @@
     ViewData["Title"] = "Home page";
 }
 
-<!-- Include LeaderLine library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.3/leader-line.min.js" integrity="sha512-aFBNsI3+D6ObLLtyKwdZPZzDbcCC6+Bh+2UNV8HC0R95BpcBT+dmmZ5NMpJi/Ic8uO0W7FGcg33IfuHg+7Ryew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- Include CSS files -->
-<link rel="stylesheet" href="~/css/swimlane.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/css/searchbar.css" asp-append-version="true" />
-
-<!-- Display search bar -->
-<div class="search-bar">
-    <input type="search" name="search" placeholder="Trace ID" />
-    <button type="submit" name="search-button"><b>Search</b></button>
-</div>
-
-<!-- Display error log message -->
-<div class="error-container">
-    <div id="error1">🔴 Error 1</div>
-</div>
-
-<!-- Display SwimLane Diagram-->
-<div class="swimlanes-wrapper">
-    <div class="swimlanes-container">
-        @foreach (var serviceName in Model.ServiceNames)
-        {
-            <div class="swimlane">
-                <div class="service-name-container">@serviceName</div>
-                <div class="log-message-container">
-                    @foreach (var service in Model.ServiceGroups[serviceName])
-                    {
-                        <div id="logMessage@(service.Id)" class="log-message" data-protocol="@service.Protocol.ToLower()" data-id="@(service.Id)">
-                            <div class="log-message-info"><b>Step @service.Id</b></div>
-                            <div class="log-message-info">Service ID: @service.ServiceId</div>
-                            <div class="log-message-info">Timestamp: @service.Timestamp</div>
-                            <div class="log-message-info">Action: @service.Action</div>
-                            <div class="log-message-info">Protocol: @service.Protocol</div>
-                            <div class="log-message-info">Elapsed: @service.ElapsedTime</div>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-<script>
+<div class="container">
+    <h1>Service Records</h1>
     
-    document.addEventListener('DOMContentLoaded', function () {
-        var logMessages = Array.from(document.getElementsByClassName('log-message'));
+    <table class="table">
+        <thead>
 
-        // Sort the log-messages array based on the 'data-id' attribute (ascending order)
-        logMessages.sort(function (a, b) {
-            // Parse 'data-id' attributes as integers for comparison
-            var idA = parseInt(a.getAttribute('data-id'));
-            var idB = parseInt(b.getAttribute('data-id'));
-            return idA - idB; // Sort in ascending order
-        });
-        
-        console.log(logMessages);
+            <tr>
+                <th>Id</th>
+                <th>Service Name</th>
+                <th>Timestamp</th>
+                <th>Level</th>
+                <th>Protocol</th>
+                <th>ElapsedTime</th>
+                <th>ActionName</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in Model.Services)
+            {
+                <tr>
+                    <td>@service.Id</td>
+                    <td>@service.ServiceName</td>
+                    <td>@service.Timestamp</td>
+                    <td>@service.Level</td>
+                    <td>@service.Protocol</td>
+                    <td>@service.ElapsedTime</td>
+                    <td>@service.ActionName</td>
+                    <td>@service.Message</td>
 
-        // Iterate through logMessages array
-        for (let i = 0; i < logMessages.length - 1; i++) {
-            let startElement = logMessages[i];
-            let endElement = logMessages[i + 1];
 
-            console.log(startElement);
 
-            var line = new LeaderLine(startElement, endElement);
-            line.setOptions({ color: 'black', size: 2 });
-            line.path = 'straight';
-        }
-        
-        // Helper function to map protocol value to CSS class
-        function GetProtocolClass(protocol) {
-            switch (protocol) {
-                case "hbase":
-                    return "protocol-hbase";
-                case "grpc":
-                    return "protocol-grpc";
-                case "mysql":
-                    return "protocol-mysql";
-                case "http":
-                    return "protocol-http";
-                default:
-                    return ""; // Default background color (if protocol not recognized)
+
+
+                </tr>
             }
-        }
-
-        // Apply CSS classes based on protocol to log messages
-        var logMessages = document.querySelectorAll('.log-message');
-        logMessages.forEach(function (logMessage) {
-            var protocol = logMessage.getAttribute('data-protocol');
-            logMessage.classList.add(GetProtocolClass(protocol));
-        });
-    });
-</script>
-
+        </tbody>
+    </table>
+</div>
