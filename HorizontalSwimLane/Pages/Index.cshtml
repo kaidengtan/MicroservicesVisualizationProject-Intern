@@ -12,6 +12,7 @@
 
             <tr>
                 <th>Id</th>
+                <th>TraceId</th>
                 <th>Service Name</th>
                 <th>Timestamp</th>
                 <th>Level</th>
@@ -22,10 +23,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var service in Model.Services)
+            @foreach (var service in Model.ArrangedServices)
             {
                 <tr>
                     <td>@service.Id</td>
+                    <td>@service.TraceId</td>
                     <td>@service.ServiceName</td>
                     <td>@service.Timestamp</td>
                     <td>@service.Level</td>
